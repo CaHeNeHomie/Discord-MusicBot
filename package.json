@@ -22,7 +22,7 @@
     "music",
     "discord-music"
   ],
-  "author": "SudhanPlayz",
+  "author": "Cá Hề",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/SudhanPlayz/Discord-MusicBot/issues"
@@ -35,7 +35,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "jsoning": "^0.11.0",
-    "lavasfy": "^2.1.2",
+    "lavasfy": "^2.2.1",
     "lodash": "^4.17.21",
     "lyrics-finder": "^21.7.0",
     "mongoose": "^5.12.3",
