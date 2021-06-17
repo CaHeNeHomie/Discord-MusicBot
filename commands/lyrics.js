@@ -5,8 +5,8 @@ const _ = require("lodash");
 
 module.exports = {
   name: "lyrics",
-  description: "To get and search lyrics of a song",
-  usage: "[Song Name]",
+  description: "Tìm lời bài hát.",
+  usage: "[Tên bài hát]",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
     member: [],
@@ -23,17 +23,17 @@ module.exports = {
     let player = await client.Manager.get(message.guild.id);
     let SongTitle = args.join(" ");
     let SearchString = args.join(" ");
-    if (!args[0] && !player) return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
+    if (!args[0] && !player) return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
     if (!args[0]) SongTitle = player.queue.current.title;
 
     let lyrics = await lyricsFinder(SongTitle);
-    if (!lyrics) return client.sendTime(message.channel, `**No lyrics found for -** \`${SongTitle}\``);
+    if (!lyrics) return client.sendTime(message.channel, `**Không tìm thấy lời cho** \`${SongTitle}\``);
     lyrics = lyrics.split("\n"); //spliting into lines
     let SplitedLyrics = _.chunk(lyrics, 40); //45 lines each page
 
     let Pages = SplitedLyrics.map((ly) => {
       let em = new MessageEmbed()
-        .setAuthor(`Lyrics for: ${SongTitle}`, client.config.IconURL)
+        .setAuthor(`Lời bài hát : ${SongTitle}`, client.config.IconURL)
         .setColor("RANDOM")
         .setDescription(ly.join("\n"));
 

@@ -3,8 +3,8 @@ const { TrackUtils, Player } = require("erela.js");
 
 module.exports = {
   name: "skipto",
-  description: `Skip to a song in the queue`,
-  usage: "<number>",
+  description: `Chuyển đến một bài nhạc trong hàng đợi.`,
+  usage: "[number]",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
     member: [],
@@ -25,23 +25,23 @@ module.exports = {
       selfDeafen: false,
     });
 
-    if (!player) return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
-    if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to use this command!**");
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, ":x: | **You must be in the same voice channel as me to use this command!**");
+    if (!player) return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
+    if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, "❌ | **Bạn phải ở cùng kênh thoại với tôi để sử dụng lệnh !**");
 
     try {
-      if (!args[0]) return client.sendTime(message.channel, `**Usage**: \`${GuildDB.prefix}skipto [number]\``);
+      if (!args[0]) return client.sendTime(message.channel, `**Đã dùng**: \`${GuildDB.prefix}skipto [number]\``);
       //if the wished track is bigger then the Queue Size
-      if (Number(args[0]) > player.queue.size) return client.sendTime(message.channel, `❌ | That song is not in the queue! Please try again!`);
+      if (Number(args[0]) > player.queue.size) return client.sendTime(message.channel, `❌ | Hừm, không có bài nhạc này đâu bạn.`);
       //remove all tracks to the jumped song
       player.queue.remove(0, Number(args[0]) - 1);
       //stop the player
       player.stop();
       //Send Success Message
-      return client.sendTime(message.channel, `⏭ Skipped \`${Number(args[0] - 1)}\` songs`);
+      return client.sendTime(message.channel, `⏭ Đã bỏ qua \`${Number(args[0] - 1)}\` bài.`);
     } catch (e) {
       console.log(String(e.stack).bgRed);
-      client.sendError(message.channel, "Something went wrong.");
+      client.sendError(message.channel, "Có gì đó không ổn.");
     }
   },
   SlashCommand: {

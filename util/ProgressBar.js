@@ -11,7 +11,7 @@ module.exports = (value, maxValue, size) => {
   const emptyProgress = size - progress; // Calculate the number of dash caracters to fill the empty progress side.
 
   const progressText = "▇".repeat(progress); // Repeat is creating a string with progress * caracters in it
-  const emptyProgressText = "—".repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
+  const emptyProgressText = "─".repeat(emptyProgress); // Repeat is creating a string with empty progress * caracters in it
   const percentageText = Math.round(percentage * 100) + "%"; // Displaying the percentage of the bar
 
   const Bar = progressText + emptyProgressText; // Creating the bar

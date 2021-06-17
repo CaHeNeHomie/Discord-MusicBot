@@ -2,7 +2,7 @@ const { MessageEmbed, MessageReaction } = require("discord.js");
 
 module.exports = {
   name: "config",
-  description: "Edit the bot settings",
+  description: "Cài đặt BOT.",
   usage: "",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -18,15 +18,15 @@ module.exports = {
    */
   run: async (client, message, args, { GuildDB }) => {
     let Config = new MessageEmbed()
-      .setAuthor("Server Config", client.config.IconURL)
+      .setAuthor("Cài đặt BOT", client.config.IconURL)
       .setColor("RANDOM")
-      .addField("Prefix", GuildDB.prefix, true)
-      .addField("DJ Role", GuildDB.DJ ? `<@&${GuildDB.DJ}>` : "Not Set", true)
+      .addField("Tiền tố", GuildDB.prefix, true)
+      .addField("DJ Role", GuildDB.DJ ? `<@&${GuildDB.DJ}>` : "Không được cài", true)
       .setDescription(`
-What would you like to edit?
+Bạn muốn cài đặt gì nào ?
 
-:one: - Server Prefix
-:two: - DJ Role
+:one: - Tiền tố Lệnh.
+:two: - DJ Role.
 `);
 
     let ConfigMessage = await message.channel.send(Config);
@@ -40,7 +40,7 @@ What would you like to edit?
     ).catch(() => {
       ConfigMessage.reactions.removeAll();
       client.sendTime(
-        message.channel, "❌ | **You took too long to respond. If you want to edit the settings, run the command again!**"
+        message.channel, "❌ | **Bạn tốn quá nhiều thời gian để trả lời. Nếu muốn trả lời, chạy lệnh lại một lần nữa !**"
       );
       ConfigMessage.delete(Config);
     });
@@ -55,13 +55,13 @@ What would you like to edit?
     let em = emoji;
     ConfigMessage.reactions.removeAll();
     if (em._emoji.name === "1️⃣") {
-      await client.sendTime(message.channel, "What do you want to change the prefix to?");
+      await client.sendTime(message.channel, "Bạn muốn đặt tiền tố thành gì ?");
       let prefix = await message.channel.awaitMessages(
         (msg) => msg.author.id === message.author.id,
         { max: 1, time: 30000, errors: ["time"] }
       );
       if (!prefix.first())
-        return client.sendTime(message.channel, "You took too long to respond.");
+        return client.sendTime(message.channel, "Bạn tốn quá nhiều thời gian để trả lời.");
       prefix = prefix.first();
       prefix = prefix.content;
 
@@ -71,22 +71,22 @@ What would you like to edit?
       });
 
       client.sendTime(
-        message.channel, `Successfully saved guild prefix as \`${prefix}\``
+        message.channel, `Tiền tố đã được đặt thành \`${prefix}\``
       );
     } else {
       await client.sendTime(
-        message.channel, "Please mention the role you want `DJ's` to have."
+        message.channel, "Hãy đề cập `role` mà các DJs cần có."
       );
       let role = await message.channel.awaitMessages(
         (msg) => msg.author.id === message.author.id,
         { max: 1, time: 30000, errors: ["time"] }
       );
       if (!role.first())
-        return client.sendTime(message.channel, "You took too long to respond.");
+        return client.sendTime(message.channel, "Bạn tốn quá nhiều thời gian để trả lời.");
       role = role.first();
       if (!role.mentions.roles.first())
         return client.sendTime(
-          message.channel, "Please mention the role that you want for DJ's only."
+          message.channel, "Hãy đề cập `role` mà các DJs bắt buộc phải có."
         );
       role = role.mentions.roles.first();
 
@@ -96,7 +96,7 @@ What would you like to edit?
       });
 
       client.sendTime(
-        message.channel, "Successfully saved guild prefix as <@&" + role.id + ">"
+        message.channel, "DJ đã được ràng buộc ở <@&" + role.id + ">"
       );
     }
   },

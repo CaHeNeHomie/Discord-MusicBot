@@ -148,12 +148,12 @@ class DiscordMusicBot extends Client {
       .on("trackStart", async (player, track) => {
         this.SongsPlayed++;
         let TrackStartedEmbed = new MessageEmbed()
-          .setAuthor(`Now playing ♪`, this.config.IconURL)
+          .setAuthor(`Đang phát ♪`, this.config.IconURL)
           .setThumbnail(player.queue.current.displayThumbnail())
           .setDescription(`[${track.title}](${track.uri})`)
-          .addField("Requested by", `${track.requester}`, true)
+          .addField("Yêu cầu bởi ", `${track.requester}`, true)
           .addField(
-            "Duration",
+            "Thời lượng",
             `\`${prettyMilliseconds(track.duration, {
               colonNotation: true,
             })}\``,
@@ -168,7 +168,7 @@ class DiscordMusicBot extends Client {
       })
       .on("queueEnd", (player) => {
         let QueueEmbed = new MessageEmbed()
-          .setAuthor("The queue has ended", this.config.IconURL)
+          .setAuthor("Hàng đợi đã hết", this.config.IconURL)
           .setColor("RANDOM")
           .setTimestamp();
         client.channels.cache.get(player.textChannel).send(QueueEmbed);

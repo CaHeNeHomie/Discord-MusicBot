@@ -3,7 +3,7 @@ const { TrackUtils } = require("erela.js");
 
 module.exports = {
     name: "loop",
-    description: "Loop the current song",
+    description: "Lặp lại bài nhạc đang phát.",
     usage: "",
     permissions: {
       channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -19,16 +19,16 @@ module.exports = {
       */
     run: async (client, message, args, { GuildDB }) => {
       let player = await client.Manager.get(message.guild.id);
-      if (!player) return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
-      if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to use this command!**");
-      if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, ":x: | **You must be in the same voice channel as me to use this command!**");
+      if (!player) return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
+      if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
+      if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, "❌ | **Bạn phải ở cùng kênh thoại với tôi để sử dụng lệnh !**");
 
         if (player.trackRepeat) {
           player.setTrackRepeat(false)
-          client.sendTime(message.channel, `Loop \`disabled\``);
+          client.sendTime(message.channel, `Tắt chế độ lặp`);
         } else {
           player.setTrackRepeat(true)
-          client.sendTime(message.channel, `Loop \`enabled\``);
+          client.sendTime(message.channel, `Bật chế độ lặp`);
         }
     },
     SlashCommand: {

@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "clear",
-  description: "Clears the server queue",
+  description: "Làm trống danh sách phát hiện tại.",
   usage: "",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -21,15 +21,15 @@ module.exports = {
     if (!player)
       return client.sendTime(
         message.channel,
-        "❌ | **Nothing is playing right now...**"
+        "❌ | **Không có bài nào đang phát cả.**"
       );
 
     if (!player.queue || !player.queue.length || player.queue.length === 0)
-      return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
-      if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to play something!**");
-      if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, ":x: | **You must be in the same voice channel as me to use this command!**");
+      return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
+      if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
+      if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, "❌ | **Bạn phải ở cùng kênh thoại với tôi để sử dụng lệnh !**");
     player.queue.clear();
-    await client.sendTime(message.channel, "✅ | **Cleared the queue!**");
+    await client.sendTime(message.channel, "✅ | **Đã làm trống danh sách !**");
   },
 
   SlashCommand: {

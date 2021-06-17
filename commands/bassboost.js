@@ -8,8 +8,8 @@ const levels = {
 };
 module.exports = {
     name: "bassboost",
-    description: "Enables bass boosting audio effect",
-    usage: "<none|low|medium|high>",
+    description: "Bật hiệu ứng âm thanh.",
+    usage: "[none | low | medium | high]",
     permissions: {
         channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
         member: [],
@@ -25,18 +25,18 @@ module.exports = {
     run: async (client, message, args, { GuildDB }) => {
 
         let player = await client.Manager.get(message.guild.id);
-        if (!player) return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
-        if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to use this command!**");
-        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, ":x: | **You must be in the same voice channel as me to use this command!**");
+        if (!player) return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
+        if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
+        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, "❌ | **Bạn phải ở cùng kênh thoại với tôi để sử dụng lệnh !**");
 
-        if (!args[0]) return client.sendTime(message.channel, "**Please provide a bassboost level. \nAvailable Levels:** `none`, `low`, `medium`, `high`"); //if the user do not provide args [arguments]
+        if (!args[0]) return client.sendTime(message.channel, "**Bạn hãy chọn mức độ hiệu ứng. \nCấp độ cho phép :** `none`, `low`, `medium`, `high`"); //if the user do not provide args [arguments]
 
         let level = "none";
         if (args.length && args[0].toLowerCase() in levels) level = args[0].toLowerCase();
 
         player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: levels[level] })));
 
-        return client.sendTime(message.channel, `✅ | **Bassboost level set to** \`${level}\``);
+        return client.sendTime(message.channel, `✅ | **Hiệu ứng được đặt là** \`${level}\``);
     },
     SlashCommand: {
         options: [

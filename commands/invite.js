@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "invite",
-  description: "To invite me to your server",
+  description: "Mời tôi vào máy chủ của bạn.",
   usage: "",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -19,18 +19,12 @@ module.exports = {
   run: async (client, message, args, { GuildDB }) => {
     let embed = new MessageEmbed()
       .setAuthor(
-        "Invite " + client.user.tag + " to your server!",
+        "Mời " + client.user.tag + " vào máy chủ của bạn !",
         client.user.displayAvatarURL()
       )
       .setColor("BLUE")
       .setDescription(
-        `You can invite me by clicking [here](https://discord.com/oauth2/authorize?client_id=${
-          client.config.ClientID
-        }&permissions=${
-          client.config.Permissions
-        }&scope=bot%20${client.config.Scopes.join("%20")}&redirect_url=${
-          client.config.Website
-        }${client.config.CallbackURL}&response_type=code)`
+        `Bấm vào [Đây](https://discord.com/api/oauth2/authorize?client_id=847737781605761035&permissions=2205280576&scope=bot) để mời tôi vào máy chủ của bạn`
       );
     message.channel.send(embed);
   },

@@ -2,8 +2,8 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "help",
-  description: "Information about the bot",
-  usage: "[command]",
+  description: "Thông tin về BOT.",
+  usage: "[lệnh]",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
     member: [],
@@ -26,20 +26,21 @@ module.exports = {
 
     let Embed = new MessageEmbed()
             .setAuthor(
-              `Commands of ${client.user.username}`,
+              `Bảng lệnh BOT nhạc của Cá Hề`,
               client.config.IconURL
             )
-            .setColor("RANDOM")
+            .setColor("#00f1d6")
             .setFooter(
-              `To get info of each command type ${
+              `Để biết thêm thông tin lệnh, nhập \`${
                 GuildDB ? GuildDB.prefix : client.config.DefaultPrefix
-              }help [Command] | Have a nice day!`
-            ).setDescription(`${Commands.join("\n")}
-  
-  Discord Music Bot Version: v${require("../package.json").version}
-  [✨ Support Server](${
-    client.config.SupportServer
-  }) | [GitHub](https://github.com/SudhanPlayz/Discord-MusicBot) | By [SudhanPlayz](https://github.com/SudhanPlayz)`);
+              }help [Command]\` | Chúc một ngày tuyệt vời !`,
+             message.author.displayAvatarURL({ dynamic: true })
+            )
+            .setDescription(`${Commands.join("\n")}
+            
+  Hoặc, đề cập <@776684345938673705> để được trợ giúp.
+  Phiên bản BOT : v${require("../package.json").version}
+  [✨ 𝐇𝐨𝐚̀𝐧𝐠 𝐓𝐡𝐚𝐧𝐡 𝐂𝐮𝐧𝐠](https://discord.gg/htc) | **Bản quyền thuộc về HTC・Cá Hề Nè Homie#8432**`);
     if (!args[0]) message.channel.send(Embed);
     else {
       let cmd =
@@ -62,15 +63,15 @@ module.exports = {
           true
         )
         .addField(
-          "Permissions",
-          "Member: " +
+          "QUYỀN CẦN CÓ",
+          "DJ: " +
             cmd.permissions.member.join(", ") +
-            "\nBot: " +
+            "\nBOT: " +
             cmd.permissions.channel.join(", "),
           true
         )
         .setFooter(
-          `Prefix - ${
+          `Tiền Tô Lệnh - ${
             GuildDB ? GuildDB.prefix : client.config.DefaultPrefix
           }`
         );

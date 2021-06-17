@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
   name: "leave",
-  description: "Stop the music and leave the voice channel",
+  description: "Rời khỏi phòng và hủy hàng đợi.",
   usage: "",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -18,9 +18,9 @@ module.exports = {
    */
   run: async (client, message, args, { GuildDB }) => {
     let player = await client.Manager.get(message.guild.id);
-    if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to play something!**");
-    if (!player) return client.sendTime(message.channel,"❌ | **Nothing is playing right now...**");
-    await client.sendTime(message.channel,":notes: | **The player has stopped and the queue has been cleared.**");
+    if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
+    if (!player) return client.sendTime(message.channel,"❌ | **Không có bài nào đang phát cả.**");
+    client.sendTime(message.channel, "🎶 | **Cá Hề đã tắt thở, máy đã treo... beep... beep...**");
     await message.react("✅");
     player.destroy();
   },

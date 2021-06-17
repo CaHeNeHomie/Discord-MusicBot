@@ -3,7 +3,7 @@ const { TrackUtils } = require("erela.js");
 
 module.exports = {
     name: "pause",
-    description: "Pauses the music",
+    description: "Dừng bài nhạc đang phát.",
     usage: "",
     permissions: {
         channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -19,12 +19,12 @@ module.exports = {
      */
     run: async (client, message, args, { GuildDB }) => {
         let player = await client.Manager.get(message.guild.id);
-        if (!player) return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
-        if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to use this command!**");
+        if (!player) return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
+        if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
         if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, ":x: | **You must be in the same voice channel as me to use this command!**");
-        if (player.paused) return client.sendTime(message.channel, "❌ | **Music is already paused!**");
+        if (player.paused) return client.sendTime(message.channel, "❌ | **Nhạc được dừng rồi mà bạn !**");
         player.pause(true);
-        let embed = new MessageEmbed().setAuthor(`Paused!`, client.config.IconURL).setColor("RANDOM").setDescription(`Type \`${GuildDB.prefix}resume\` to play!`);
+        let embed = new MessageEmbed().setAuthor(`Paused!`, client.config.IconURL).setColor("RANDOM").setDescription(`Nhập \`${GuildDB.prefix}resume\` để tiếp tục bài nhạc !`);
         await message.channel.send(embed);
         await message.react("✅");
     },

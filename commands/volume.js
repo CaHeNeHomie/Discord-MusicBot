@@ -3,8 +3,8 @@ const { TrackUtils } = require("erela.js");
 
 module.exports = {
     name: "volume",
-    description: "Changes the Volume",
-    usage: "<volume>",
+    description: "Thay đổi âm lượng BOT.",
+    usage: "[volume]",
     permissions: {
         channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
         member: [],
@@ -19,13 +19,13 @@ module.exports = {
      */
     run: async (client, message, args, { GuildDB }) => {
         let player = await client.Manager.get(message.guild.id);
-        if (!player) return client.sendTime(message.channel, "❌ | **Nothing is playing right now...**");
-        if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **You must be in a voice channel to use this command!**");
-        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, ":x: | **You must be in the same voice channel as me to use this command!**");
-        if (!parseInt(args[0])) return client.sendTime(message.channel, `**Please choose a number between** \`1 - 100\``);
+        if (!player) return client.sendTime(message.channel, "❌ | **Không có bài nào đang phát cả.**");
+        if (!message.member.voice.channel) return client.sendTime(message.channel, "❌ | **Bạn phải ở trong kênh thoại để dùng lệnh.**");
+        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return client.sendTime(message.channel, "❌ | **Bạn phải ở cùng kênh thoại với tôi để sử dụng lệnh !**");
+        if (!parseInt(args[0])) return client.sendTime(message.channel, `**Hãy chọn số từ** \`1\` **đến** \`100\``);
         let vol = parseInt(args[0]);
         player.setVolume(vol);
-        client.sendTime(message.channel, `🔉 | **Volume set to** \`${player.volume}\``);
+        client.sendTime(message.channel, `🔉 | **Âm lượng đặt thành** \`${player.volume}\``);
     },
     SlashCommand: {
         options: [
